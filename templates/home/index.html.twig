@@ -1,0 +1,828 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ArticleController!{% endblock %}
+
+{% block body %}
+
+ <section class="view intro-2"  style="background-image: url(https://cdn.wallpapersafari.com/62/30/M2fzJb.jpg); background-repeat: no-repeat; background-size: cover; background-position: center center;height: 50%">
+      <div class="mask rgba-indigo-strong h-100 d-flex justify-content-center align-items-center">
+        <div class="container">
+          <div class="row">
+            <div class="col-xl-5 col-lg-6 col-md-10 col-sm-12 mx-auto mt-lg-5">
+
+            <div class="full-bg-img flex-center white-text">
+
+              <ul class="list-unstyled animated fadeIn col-10">
+
+                <li>
+
+                   <a class="navbar-brand font-weight-bold title" >
+                <div class="main-div animate__animated animate__flip">
+                    <img  src="{{ asset('/img/games.png') }}" style = "width: 190px;height: 100px;"> 
+                </div>
+
+        </a>
+       
+                </li> <div class="animate__animated animate__flipInY">
+                <li>
+                  <a  href="#top"
+                    class="btn btn-info" rel="nofollow" style = "width: 150px;height: 55px;">Come on in <i class="fas fa-arrow-down"></i></a>
+
+                </li></div>
+
+              </ul>
+
+            </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+<body class="fixed-sn homepage-v5 " >
+
+<style>
+    a:hover{
+
+        -webkit-box-reflect:below 1px linear-gradient(transparent, #0005);
+    }
+</style>
+ <main >
+
+    <div class="container-fluid ">
+
+ <div class="row mt-2">
+
+     
+        <div class="col-xl-8 col-md-12">
+
+       
+          <section class="section extra-margins mt-2">
+
+            <h4 class="font-weight-bold" ><strong>جديد الألعاب</strong></h4>
+
+            <hr class="red title-hr">
+
+             <script>
+                $(document).on('click', 'a[href^="#"]', function (event) {
+                    event.preventDefault();
+
+                    $('html, body').animate({
+                        scrollTop: $($.attr(this, 'href')).offset().top
+                    }, 500);
+                });
+
+            </script>
+            <div id="carousel-example-2" class="carousel slide carousel-fade my-4 z-depth-1" data-ride="carousel" >
+
+            
+              <ol class="carousel-indicators"  id="top">
+            {% for i in images %}
+                <li data-target="#carousel-example-2" data-slide-to="{{loop.index0}}" 
+                
+                {% if loop.first %} class="active"> {% endif %}
+               </li>
+           {% endfor %}
+              
+
+              </ol>
+             
+
+            
+              <div class="carousel-inner" role="listbox">
+                  {% for i in images %}
+                <div class="carousel-item {% if loop.first %} active {% endif %}">
+
+                  <div class="view">
+
+                    <img class="d-block w-100 rounded" src="{{ asset('images/article/' ~ i.image) }} " style="height: 450px;width: 1200px"
+                      alt="First slide">
+
+                    <div class="mask rgba-black-light"></div>
+
+                  </div>
+
+                  <div class="carousel-caption">
+
+                    <h3 class="h3-responsive font-weight-bold">{{i.titre}}</h3>
+
+                    
+
+                  </div>
+
+                </div>
+{% endfor %}
+               
+
+              </div>
+              
+              <a class="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev">
+
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+
+                <span class="sr-only">Previous</span>
+
+              </a>
+
+              <a class="carousel-control-next" href="#carousel-example-2" role="button" data-slide="next">
+
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+
+                <span class="sr-only">Next</span>
+
+              </a>
+          
+
+            </div>
+         
+            <section >
+
+              <h4 class="font-weight-bold mt-5"><strong>TOP GAMES</strong></h4>
+
+              <hr class="red title-hr">
+
+           
+              <div class="row mb-4 ">
+              {% for article in articles %}
+                <div class="col-md-6 text-left mt-3 ">
+             
+                  <div class="card text-center #e3f2fd blue lighten-5">
+                 
+                    <div class="view overlay">
+                    <h6 class="font-weight-bold indigo-text">
+                          
+{# <img src = "{{ asset('images/article/' ~ article.image) }}"   style="width: 350px;height: 200px; "class="card-img-top"
+                                 alt="">  #}
+                                 {# <video controls  autoplay muted loop style="width: 350px;height: 200px";>
+        <source src="{{ asset('images/article/' ~ article.image) }}" type="video/mp4">
+      </video> #}
+                                    <!-- Card image --><a href="{{ path('article_show', {'id': article.id}) }}">
+                                    <div class="view view-cascade overlay zoom"> 
+                                    <img src="{{ asset('images/article/' ~ article.image) }}" style="width: 450px;height: 300px; "class="card-img-top"
+                                    alt="Sample image">
+                                    </div></a>
+                   
+
+                    </div>
+                
+                    <div class="card-body">
+
+                   
+                                <h4 class="card-title"><strong>{{article.nom}}</strong></h4>
+
+                                {% if article.comments | length > 0 %}
+            
+              
+
+               
+                         
+                         
+                           <span class="rating">
+                              {% for i in 1..5 %}
+                                  {% if i <= article.getAvgRating %} 
+                                  <i class="fas fa-star"></i>
+                                  {% else %}
+                                  <i class="far fa-star"></i>
+                                  {% endif %}
+                                  {% endfor %}                         
+                         <br>
+                          
+                          </span>
+                            
+                            {% else %}
+                             <span class="rating">
+                            {% for i in 1..5 %}
+                                  {% if i <= article.getAvgRating %} 
+                                  <i class="fas fa-star"></i>
+                                  {% else %}
+                                  <i class="far fa-star"></i>
+                                  {% endif %}
+                                  {% endfor %} 
+                                  </span>
+                            {% endif %}
+
+                                <hr>
+
+                     
+                                <p class="card-text mb-3">  <h6>Category
+                                &nbsp; {% if  article.categorie.nom == 'Games' %}
+                            
+                            <i class="fa fa-gamepad"></i> {{article.categorie.nom}}
+                            {% elseif article.categorie.nom == 'Software' %}
+                           <i class="fab fa-microsoft"></i>
+                             {{article.categorie.nom}}</h4>
+                              {% else %}
+                                <i class="fas fa-wifi"></i>
+                             {{article.categorie.nom}}</h4>
+                              {% endif %} </h6> </p>
+                        
+                   
+
+                     
+
+                  
+
+                     
+                         
+                                <a href="#" class="custom-btn btn-12"><span>Click!</span><span>Voire plus</span>
+                                    <i class="fas fa-long-arrow-alt-right ml-2" aria-hidden="true"></i>
+                                </a>
+                                 <a href="{{ asset('images/article/' ~ article.file) }}" download="{{ asset('images/article/' ~ article.file) }}" class="custom-btn btn-12"><span>Click!</span><span>Telecharger</span>
+                                    <i class="fas fa-long-arrow-alt-right ml-2" aria-hidden="true"></i>
+                                </a>
+                    </div>
+                    
+                  
+                                        <div class="blue-gradient lighten-3 text-center">
+
+                                            <ul class="list-unstyled list-inline font-small mt-3">
+
+                                                <li class="list-inline-item pr-2 white-text"><i class="far fa-clock-o pr-1"></i>{{article.createdAt ? article.createdAt|date('d/m/Y')}}</li>
+
+                                                <li class="list-inline-item pr-2"><a href="#" class="white-text"><i
+                                                class="far fa-comments pr-1"></i>{{article.comments | length }}</a></li>
+                                                <li class="list-inline-item pr-2"><a  class="white-text"><i
+                                                class="far fa-eye pr-1"></i>{{article.view}} Views</a></li>
+
+                                            </ul>
+                                        </div>
+                  </div>
+                
+   
+                </div>
+ {% endfor %}
+              </div>
+       <nav class="my-4 flex-center">
+          <ul class="list-unstyled pagination pagination-circle pg-blue mb-0">
+
+            <!-- First -->
+            <li class="page-item disabled clearfix d-none d-md-block">
+              <a class="page-link">First</a>
+            </li>
+
+            <!-- Arrow left -->
+            <li class="page-item {% if page ==1 %}disabled{% endif %}">
+              <a class="page-link" aria-label="Previous" href="{{path('home', {'page': page -1}) }}">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+              </a>
+            </li>
+
+            <!-- Numbers -->
+            {% for i in 1..pages %}
+            <li class="page-item {% if page==i %}active {% endif %}">
+              <a class="page-link" href="{{path('home',{'page':i})}}">{{i}}</a>
+            </li>
+            {% endfor %}
+
+            <!-- Arrow right -->
+            <li class="page-item {% if page == pages %}disabled{% endif %}">
+              <a class="page-link" aria-label="Next"   href="{{path('home', {'page': page +1}) }}">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+              </a>
+            </li>
+
+            <!-- First -->
+            <li class="page-item clearfix d-none d-md-block">
+              <a class="page-link" >Last</a>
+            </li>
+
+          </ul>
+        </nav>
+             
+          
+
+            </section>
+
+        
+    
+     
+          
+
+          </section>
+
+        </div>
+      
+        <div class="col-xl-4 col-md-12 widget-column mt-0">
+
+         
+          <section class="section mb-5">
+
+            <h4 class="font-weight-bold mt-2"><strong>CATEGORIES</strong></h4>
+
+            <hr class="red title-hr">
+
+            <ul class="list-group z-depth-1 mt-4">
+
+{% for categorie in categories %}
+
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                <a>{{categorie.nom}}</a>
+
+                <span class="badge badge-danger badge-pill">{{ categorie.articles | length }}</span>
+
+              </li>
+{% endfor %}
+ 
+
+            </ul>
+
+          </section>
+
+
+          
+          <section class="section widget-content animate__animated animate__bounceIn animate__delay-1s">
+
+           
+            <h4 class="font-weight-bold pt-2"><strong>TRENDING</strong></h4>
+
+            <hr class="red title-hr mb-4">
+
+           
+            <div class="card card-body pb-0">
+
+  {% for trend in trends %}
+              <div class="single-post">
+
+              
+                <div class="row">
+                  <div class="col-4">
+                    <div class="view overlay">
+                      <img src="{{ asset('images/article/' ~ trend.image) }}" style="width: 75px;height: 60px";
+                        class="img-fluid z-depth-1 rounded-0" alt="sample image">
+                      <a>
+                        <div class="mask rgba-white-slight"></div>
+                      </a>
+                    </div>
+                  </div>               
+                  <div class="col-8">
+                    <h6 class="mt-0 mb-3"><a><strong>{{trend.nom}}</strong></a> <p class="font-small grey-text mb-0"><i class="far fa-eye"> {{trend.view}}</i> </p></h6>
+                    <div class="post-data">
+                     
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+{% endfor %}
+
+
+             
+
+            </div>
+
+          </section>
+    <div class='flip-container' ontouchstart="this.classList.toggle('hover');">
+  <div class='flipper'>
+    <div class='front'>
+      <div id='container'></div>
+    </div>
+    <div class='back'>
+			<b>Nintendo's Game Boy handheld was first released in 1989. The gaming device was the brainchild of long-time Nintendo employee <span>Gunpei Yokoi</span>, who was the person behind the <span>Ultra Hand</span>, an expanding arm toy created and produced by Nintendo in 1970, long before Nintendo would enter the video game market. Yokoi was also responsible for the <span>Game &amp; Watch</span> series of handhelds when Nintendo made the move from toys to video.
+			</b>
+			<b>Based on a Z80 processor, it has a black and green reflective LCD screen, an eight-way directional pad, two action buttons (A and B), and Start and Select buttons. It plays games from ROM-based media contained in small plastic detachable units called cartridges (sometimes called carts or Game Paks).
+			</b>
+			<b>Source: The one and only <span>Wikipedia</span></b>
+		</div>
+  </div>
+</div>
+<script>
+/*  ☜(⌒▽⌒)☞ */
+
+var i = 0,
+		sideLength = 25,
+		tileSize = 5, 
+		borderTiles = 2,
+		backColor = 'rgb(0,200,0)', // background color
+		dataStr = [];  // frame data
+
+/* add frames as needed */
+dataStr[0] = '0000000000000000000000000000000000000000000000000000000000000000111000000000000000000001113310000000000000000001222133100000000000000001222221111000000000000000122222133210000000000000132222221121000000000000013225444224100000000000111325441151410000000001133312544115141000000001222333155444545100000001222233133511115100000000122211133332555111000000012221213333311122210000000111212312332222221000000122111223123222222100000122221322221111111100000122222333222233310000000012212233311133322100000000111122310001222210000000000001110000122211100000000000000000122222221000000000000000011111111100000000000000000000000000000';
+
+dataStr[1] = 
+'0000000000000011100000000000000000000111331000000000000000000122213310000000000000000122222111100000000000000012222213321000000000000013222222112100000000000001322544422410000000000001132544115141000000000001331254411514100000000001333125544454510000000001333331251111510000000000133313315555510000000000001222133111111000000000000122221133331210000000000001221221331221000000000000012222121111000000000000000122121310000000000000000001133131000000000000000001133311000000000000000001222221000000000000000001222221000000000000000000122211100000000000000000001222221000000000000000000011111100000000000000000000000000000000000';
+
+dataStr[2] = 
+'0000000000000000000000000000000000000000000000000000000000000001110000000000000000000011133100000000000000000012221331000000000000000012222211110000000000000001222221332100000000000111322222211210000000001133132254442241000000001213313254411514100000001222133125441151410111001222213312554445451122210122213133125111151012221012221313331555551311222100111331233311111333222100000113122233333133222100000122112222223101322100000122221122333100011100000122222311233331000000000012212233311333210000000000111123310133321000000000000001110012222100000000000000000001222111000000000000000001222222210000000000000000111111111000000';
+
+/* convert frame data*/
+for (var j = 0; j < dataStr.length; j++) {
+ dataStr[j] = dataStr[j].split("");
+}
+
+/* Animation colors; Be sure to provide as many values as indicated in frames; 
+Zero value is always the background color. */ 
+var mapColor = function (pixel) {
+  var theColors =[backColor,'rgb(0,0,0)','rgb(50,50,50)',
+	'rgb(70,70,70)','rgb(200,239,213)','rgb(255,218,185)'];
+	return theColors[pixel];
+}
+
+function setup() {
+  var s = (sideLength + borderTiles * 2) * tileSize;
+  var canvas = createCanvas(s, s);
+	canvas.parent('container');
+  noStroke();
+	background(backColor);
+}
+
+function draw() {
+	var pixel;
+	// Retrieve next frame
+	var mapArray = dataStr[i%2];
+	
+  var offset = borderTiles * tileSize;
+  translate(offset, offset);
+
+	for (var y = 0; y < sideLength; y++) { 
+		for (var x = 0; x < sideLength; x++) {
+
+			pixel = parseInt(mapArray[x + y * sideLength]);  
+			fill(mapColor(pixel));
+			rect(x * tileSize, y * tileSize, tileSize, tileSize);
+
+  	}		
+  }
+	
+	i++;
+ 	frameRate(5);
+}
+
+
+</script>
+<style>
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
+
+
+#container {
+	position: relative;
+	width: 30em;
+	height: 40em;
+	background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/807677/gameBoy.png") no-repeat;
+	background-size: 30em;
+}
+
+canvas {
+	position: absolute;
+	top: 8em;
+	left: 8em;
+	background: rgb(0,200,0);
+	padding: 1.5em 2.25em 0em;
+	opacity: .7;
+	border: .3em solid rgb(50,50,50);
+}
+
+.flip-container {
+	margin: auto;
+	perspective: 1000px;
+}
+
+	.flip-container:hover .flipper, .flip-container.hover .flipper {
+		transform: rotateY(180deg);
+	}
+
+.flip-container, .front, .back {
+	width: 30em;
+	height: 40em;
+}
+
+.flipper {
+	transition: 0.6s;
+	transform-style: preserve-3d;
+	position: relative;
+}
+
+.front, .back {
+	backface-visibility: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.front {
+	z-index: 2;
+	transform: rotateY(0deg);
+}
+
+.back {
+	background: #DDD;
+	border-radius: .5em;
+	border: 2px solid #888;
+	transform: rotateY(180deg);
+}
+
+
+
+</style>
+
+        </div>
+     
+
+      </div>
+     
+</div>
+<style>
+      .custom-btn {
+            width: 130px;
+            height: 40px;
+            color: #fff;
+            border-radius: 5px;
+            padding: 10px 25px;
+            font-family: 'Lato', sans-serif;
+            font-weight: 500;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            display: inline-block;
+            box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+            7px 7px 20px 0px rgba(0,0,0,.1),
+            4px 4px 5px 0px rgba(0,0,0,.1);
+            outline: none;
+        }
+
+        /* 7 */
+        .btn-7 {
+            background: linear-gradient(0deg, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 100%);
+            line-height: 42px;
+            padding: 0;
+            border: none;
+        }
+        .btn-7 span {
+            position: relative;
+            display: block;
+            width: 100%;
+            height: 100%;
+
+        }
+
+        .btn-7:before,
+        .btn-7:after {
+            position: absolute;
+            content: "";
+            right: 0;
+            bottom: 0;
+
+            background: rgb(255, 255, 255);
+            box-shadow:
+                    -7px -7px 20px 0px rgba(255,255,255,.9),
+                    -4px -4px 5px 0px rgba(255,255,255,.9),
+                    7px 7px 20px 0px rgba(0,0,0,.2),
+                    4px 4px 5px 0px rgba(0,0,0,.3);
+            transition: all 0.3s ease;
+        }
+        .btn-7:before{
+            height: 0%;
+            width: 2px;
+        }
+        .btn-7:after {
+            width: 0%;
+            height: 2px;
+        }
+        .btn-7:hover{
+            color: rgb(255, 255, 255);
+            background: transparent;
+
+        }
+
+        .btn-7:hover:before {
+            height: 100%;
+        }
+        .btn-7:hover:after {
+            width: 100%;
+        }
+        .btn-7 span:before,
+        .btn-7 span:after {
+            position: absolute;
+            content: "";
+            left: 0;
+            top: 0;
+            background: rgb(255, 255, 255);
+            box-shadow:
+                    -7px -7px 20px 0px rgba(255,255,255,.9),
+                    -4px -4px 5px 0px rgba(255,255,255,.9),
+                    7px 7px 20px 0px rgba(0,0,0,.2),
+                    4px 4px 5px 0px rgba(0,0,0,.3);
+            transition: all 0.3s ease;
+        }
+        .btn-7 span:before {
+            width: 2px;
+            height: 0%;
+        }
+        .btn-7 span:after {
+            height: 2px;
+            width: 0%;
+        }
+        .btn-7 span:hover:before {
+            height: 100%;
+        }
+        .btn-7 span:hover:after {
+            width: 100%;
+        }
+
+
+
+
+        /* 12 */
+        .btn-12{
+            position: relative;
+            right: 20px;
+            bottom: 20px;
+            border:none;
+            box-shadow: none;
+            width: 130px;
+            height: 40px;
+            line-height: 42px;
+            -webkit-perspective: 230px;
+            perspective: 230px;
+        }
+        .btn-12 span {
+            background: rgb(0,172,238);
+            background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
+            display: block;
+            position: absolute;
+            width: 130px;
+            height: 40px;
+            box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+            7px 7px 20px 0px rgba(0,0,0,.1),
+            4px 4px 5px 0px rgba(0,0,0,.1);
+            border-radius: 5px;
+            margin:0;
+            text-align: center;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            -webkit-transition: all .3s;
+            transition: all .3s;
+            color: white;
+        }
+        .btn-12 span:nth-child(1) {
+            box-shadow:
+                    -7px -7px 20px 0px #fff9,
+                    -4px -4px 5px 0px #fff9,
+                    7px 7px 20px 0px #0002,
+                    4px 4px 5px 0px #0001;
+            -webkit-transform: rotateX(90deg);
+            -moz-transform: rotateX(90deg);
+            transform: rotateX(90deg);
+            -webkit-transform-origin: 50% 50% -20px;
+            -moz-transform-origin: 50% 50% -20px;
+            transform-origin: 50% 50% -20px;
+        }
+        .btn-12 span:nth-child(2) {
+            -webkit-transform: rotateX(0deg);
+            -moz-transform: rotateX(0deg);
+            transform: rotateX(0deg);
+            -webkit-transform-origin: 50% 50% -20px;
+            -moz-transform-origin: 50% 50% -20px;
+            transform-origin: 50% 50% -20px;
+        }
+        .btn-12:hover span:nth-child(1) {
+            box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+            7px 7px 20px 0px rgba(0,0,0,.1),
+            4px 4px 5px 0px rgba(0,0,0,.1);
+            -webkit-transform: rotateX(0deg);
+            -moz-transform: rotateX(0deg);
+            transform: rotateX(0deg);
+        }
+        .btn-12:hover span:nth-child(2) {
+            box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+            7px 7px 20px 0px rgba(0,0,0,.1),
+            4px 4px 5px 0px rgba(0,0,0,.1);
+            color: transparent;
+            -webkit-transform: rotateX(-90deg);
+            -moz-transform: rotateX(-90deg);
+            transform: rotateX(-90deg);
+        }
+
+    </style>
+
+{#    nomevent#}
+
+   
+
+{#    titre#}
+
+  
+    
+ </main>
+   <section>
+
+      <div class="container-fluid blue-grey lighten-5 mb-0 pb-0">
+        <div class="container">
+
+          <!-- Grid row -->
+          <div class="row">
+
+            <!-- Grid column -->
+            <div class="col-lg-4 col-md-12">
+              <h6 class="font-weight-bold mt-5 mb-3">ABOUT</h6>
+              <hr class="mb-5">
+              <img src="https://d7ieeqxtzpkza.cloudfront.net/wp-content/uploads/2020/04/200124_Vignette_Web_Detail-1.jpg" alt="sample image"
+                class="img-fluid rounded z-depth-1">
+              <p class="mt-4 mb-5">The official channel of www.ogames.com, the best site for downloading games and softwares for PC,
+               complete for free and with direct links :).</p>
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-lg-4 col-md-6">
+              <h6 class="font-weight-bold mt-5 mb-3">LATESTS GAMES</h6>
+              <hr class="mb-5">
+              <!-- Grid row -->
+              <div class="row mt-4">
+                {% for a in dateA %}
+                <!-- Grid column -->
+                <div class="col-4">
+
+                  <!-- Image -->
+                  <div class="view overlay z-depth-1 mb-3">
+                    <img src="{{ asset('images/article/' ~ a.image) }}" class="img-fluid" alt="Post" style="width: 100px;height: 80px;">
+                    <a>
+                      <div class="mask rgba-white-slight"></div>
+                    </a>
+                  </div>
+
+                </div>
+                <!-- Grid column -->
+
+                <!-- Second column -->
+                <div class="col-8 mb-1">
+
+                  <!-- Post data -->
+                  <div class="">
+                    <p class="mb-1">
+                      <a href="#!" class="text-hover font-weight-bold">{{a.nom}}</a>
+                    </p>
+                    <p class="font-small grey-text">
+                      <em>{{a.createdAt ? a.createdAt|date('d/m/Y')}}</em>
+                    </p>
+                  </div>
+
+                </div>
+                <!-- Second column -->
+                {% endfor %}
+              </div>
+         
+
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-lg-4 col-md-6">
+              <h6 class="font-weight-bold mt-5 mb-3">OLDER GAMES</h6>
+              <hr class="mb-5">
+              <!-- Grid row -->
+              <div class="row mt-4">
+              {% for d in dateD %}
+                <!-- Grid column -->
+                <div class="col-4">
+
+                  <!-- Image -->
+                  <div class="view overlay z-depth-1 mb-3">
+                    <img src="{{ asset('images/article/' ~ d.image) }}" class="img-fluid" alt="Post"style="width: 100px;height: 80px;">
+                    <a>
+                      <div class="mask rgba-white-slight"></div>
+                    </a>
+                  </div>
+
+                </div>
+                <!-- Grid column -->
+
+                <!-- Second column -->
+                <div class="col-8 mb-1">
+
+                  <!-- Post data -->
+                  <div class="">
+                    <p class="mb-1">
+                      <a href="#!" class="text-hover font-weight-bold">{{d.nom}}</a>
+                    </p>
+                    <p class="font-small grey-text">
+                      <em>{{d.createdAt ? d.createdAt|date('d/m/Y')}}</em>
+                    </p>
+                  </div>
+
+                </div>
+                <!-- Second column -->
+                {% endfor %}
+              </div>
+           
+              <!-- Grid row -->
+
+            </div>
+            <!-- Grid column -->
+
+          </div>
+          <!-- Grid row -->
+
+        </div>
+      </div>
+
+    </section>
+    <!-- Latest posts -->
+</body>
+
+
+{% endblock %}

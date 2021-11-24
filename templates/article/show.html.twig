@@ -1,0 +1,773 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ArticleController!{% endblock %}
+
+{% block body %}
+
+ 
+<body class="fixed-sn postpage-v1">
+
+ 
+  <main>
+
+     <div class="dotted-scrollspy clearfix d-none d-sm-block ">
+
+        <ul class="nav smooth-scroll flex-column ">
+
+            <li class="nav-item "><a class="nav-link " href="#top"><span></span></a></li>
+
+            <li class="nav-item "><a class="nav-link " href="#download"><span></span></a></li>
+            <li class="nav-item "><a class="nav-link " href="#comment"><span></span></a></li>
+             <li class="nav-item "><a class="nav-link " href="#like"><span></span></a></li>
+            <script>
+                $(document).on('click', 'a[href^="#"]', function (event) {
+                    event.preventDefault();
+
+                    $('html, body').animate({
+                        scrollTop: $($.attr(this, 'href')).offset().top
+                    }, 500);
+                });
+
+            </script>
+
+
+
+
+        </ul>
+
+    </div>
+ <script>  window.setTimeout(function() {
+            $(".alertt").fadeTo(500, 0).slideUp(500, function(){
+                $(this).remove();
+            });
+        }, 4000);</script>
+  {% for label,messages in app.flashes %}
+                                    <div class="container">
+                                        <div class="alertt alert alert-{{ label }}">
+                                            {% for message in messages %}
+                                                <p>{{ message }}</p>
+                                            {% endfor %}
+                                        </div>
+
+                                    </div>
+                                {% endfor %}
+
+    <div class="container-fluid" id="top">
+
+      <!-- Magazine -->
+      <div class="row mt-2">
+
+        <!-- Main news -->
+        <div class="col-xl-8 col-md-12">
+
+          <!-- Post -->
+          <div class="row mt-2 mb-5 pb-3 mx-2">
+
+            <!-- Card -->
+            <div class="card card-body mb-5">
+
+              <div class="post-data mb-4">
+
+                <p class="font-small dark-grey-text mb-1">
+
+                  <strong>Creater:</strong> {{article.user}}</p>
+
+                <p class="font-small grey-text">
+
+                  <i class="far fa-clock-o"></i> {{article.createdAt ? article.createdAt|date('d/m/Y')}}</p>
+
+              </div>
+
+              <a>
+
+                <span class="badge badge-danger">New</span>
+
+              </a>
+
+              <!-- Title -->
+              <h2 class="font-weight-bold mt-3">
+
+                <strong>{{article.nom}}</strong>
+
+              </h2>
+
+              <hr class="red title-hr">
+<div class="text-center">
+              <img src="{{ asset('images/article/' ~ article.image) }}" style="width: 650px;height: 550px; "class="img-fluid z-depth-1 rounded"
+                alt="sample image">
+</div>
+              <!-- Grid row -->
+              <div class="row">
+
+                <!-- Grid column -->
+                <div class="col-md-3 mt-4">
+
+                  <h5 class="font-weight-bold dark-grey-text">
+
+                    <i class="far fa-lg fa-newspaper mr-3 dark-grey-text"></i>
+
+                    <strong>{{article.view}}</strong> Views</h5>
+                </div>
+
+                 <div class="col-md-3 mt-4">
+<a  href="#comment">
+                  <h5 class="font-weight-bold dark-grey-text">
+
+                    <i class="far fa-lg fa-comments mr-3 dark-grey-text"></i>
+
+                    <strong>{{article.comments | length}}</strong> Comments
+                  
+                    </h5>  </a>
+                </div>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-md-4 mt-2 d-flex justify-content-end">
+
+
+                   
+
+
+
+<br/>
+{% if app.user %}
+                    {% if article.favorit == 0 %}
+                        <a href="{{ path('edit_fav', {'id': article.id}) }}" class="btn btn-outline-red btn-rounded btn-sm px-8"><i class="fas fa-heart"> Like</i> </a>
+                    {% else %}
+                        <a href="{{ path('edit_fav', {'id': article.id}) }}" class="btn btn-red btn-rounded btn-sm px-8"><i class="far fa-heart"></i> unlike</a>
+                    {% endif %}
+{% else %}
+ {% if article.favorit == 0 %}
+                        <a href="{{ path('edit_fav', {'id': article.id}) }}" class="btn btn-outline-red btn-rounded   disabled" ><i class="fas fa-heart"> Like</i> </a>
+                    {% else %}
+                        <a href="{{ path('edit_fav', {'id': article.id}) }}" class="btn btn-red btn-rounded   disabled" ><i class="far fa-heart"></i> unlike</a>
+                    {% endif %}
+{% endif %}
+                  <!-- Facebook -->
+            
+
+                </div>
+                <!-- Grid column -->
+
+              </div>
+              <!-- Grid row -->
+
+              <hr>
+
+              <!-- Grid row -->
+              <div class="row mx-md-4 px-4 mt-3">
+
+              
+
+
+            
+
+                <blockquote class="blockquote">
+
+                  <p class="mb-0">Gameplay
+                  </p>
+
+                </blockquote>
+
+            
+              </div>
+            
+              <div class="text-center">
+  <iframe width="720" height="400"
+src="{{ article.youtube }}">
+</iframe></div>
+      {# <video controls  autoplay muted loop style="width: 350px;height: 200px";>
+        <source src="{{ article.youtube }}" type="video/mp4">
+      </video>  #}
+              <!-- Grid row -->
+              <div class="row mx-md-4 px-md-4 px-4 mt-3">
+
+             
+
+                <li class="dark-grey-text article list-unstyled">
+
+                  <strong>About This Game :</strong>
+<p>The 3D platformer with attitude! Join Beebz in her
+ ambitious goal of taking over the Demon Turfs and becoming the Demon Queen herself!
+  Jump, spin and punch your way across the turfs with unique mechanics like momentum-driven
+   combat and self-placed checkpoints. Time to face the Demon King head on!</p>
+   <h6>System Requirements for Demon Turf Download Free</h6>
+   <p>MINIMUM :</p>
+  <p>Requires a 64-bit processor and operating system<br>
+OS: Windows XP SP3 / Windows Vista / Windows 7 / Windows 8 / Windows 10<br>
+Processor: 3.0 GHz processor<br>
+Memory: 4 GB RAM<br>
+Graphics: GeForce GT 740 (2048 MB) or equivalent | Radeon HD 5770 (1024 MB)<br>
+DirectX: Version 9.0<br>
+Storage: 10 GB available space</p>
+
+<hr>
+  <p>RECOMMENDED :</p>
+  <p>Requires a 64-bit processor and operating system<br>
+OS: Windows 7 / Windows 8 / Windows 10<br>
+Processor: 3.0 GHz processor<br>
+Memory: 8 GB RAM<br>
+Graphics: GeForce GT 740 (2048 MB) or equivalent | Radeon HD 5770 (1024 MB)<br>
+DirectX: Version 9.0<br>
+Storage: 10 GB available space</p>
+
+
+                </li>
+
+              </div>
+              <!-- Grid row -->
+
+              <hr id="download">
+              <!-- Grid row -->
+              <div class="row mb-4" >
+
+                <!-- Grid column -->
+                <div class="col-md-12 text-center">
+
+                  <h4 class="text-center font-weight-bold dark-grey-text mt-3 mb-3">
+
+                    <strong >Download </strong>
+
+                  </h4>
+
+                  <a type="button" class="btn btn-fb btn-sm" href="{{ asset('images/article/' ~ article.file) }}" download="{{ asset('images/article/' ~ article.file) }}">
+
+                    <i class="fab fa-donwload-f left"></i> Download</a>
+
+                 
+
+                </div>
+                <!-- Grid column -->
+
+              </div>
+              <!-- Grid row -->
+
+            </div>
+
+            <!-- Card -->
+            <section class="text-left">
+
+              <!-- Author box -->
+     
+              <!-- Author box -->
+
+            </section>
+
+          </div>
+
+     <!-- comment -->
+   <div class="comments-list text-center text-md-left" id="comment">
+
+              <div class="text-center my-5">
+
+                <h3 class="font-weight-bold">Comments
+
+                  <span class="badge indigo">{{article.comments | length}}</span>
+
+                </h3>
+
+              </div>
+ {% if article.comments | length > 0 %}
+              <!-- First row -->
+                <div class="text-center my-5 alert alert-info">
+
+                <h6 class="font-weight-bold ">Note global donnee par nos gamers</h6>
+                         
+                           <div class="col">
+                              {% for i in 1..5 %}
+                                  {% if i <= article.getAvgRating %} 
+                                  <i class="fas fa-star"></i>
+                                  {% else %}
+                                  <i class="far fa-star"></i>
+                                  {% endif %}
+                                  {% endfor %}                         
+                         <br>
+                          
+                           <small>(Calculée sur {{article.comments | length}} avis !)</small>
+                            </div>
+              </div>
+{% endif %}
+  <section class="mb-5 wow fadeIn" data-wow-delay="0.3s"> <div class="reply-form">
+                 <h3 class="text-center h3 mb-3">Leave a reply</h3>
+          <p class="text-center">(Logged In User)</p>
+                <div class="text-center my-5">
+
+                <div class="row text-center text-md-left">
+ {% if app.user %}
+                  <div class="col-sm-2 col-12 mb-md-0 mt-4">
+                 
+              <img src="{{ asset('images/article/' ~ app.user.pic) }}" alt="Sample avatar image" class="img-fluid avatar rounded-circle z-depth-2">
+            </div>
+
+
+                    <div class="media-body">
+
+       
+
+                      <div class="form-group rounded-corners">
+   
+
+
+                        {{ form_start(form) }}
+                         {{ form_widget(form) }}
+                         
+                         <button type="submit" class="btn btn-pink btn-rounded" >commenter</button>
+                          {{ form_end(form) }}
+                       
+
+                      </div>
+
+                    </div>
+{% else %}
+           
+
+
+                    <div class="media-body" >
+
+       
+
+                      <div class="form-group rounded-corners">
+   
+
+
+                        {{ form_start(form) }}
+                         {{ form_widget(form) }}
+                         
+                         <button type="submit" class="btn btn-pink btn-rounded" disabled="disabled">Login to comment</button>
+                          {{ form_end(form) }}
+                       
+
+                      </div>
+
+                    </div>
+                    {% endif %}
+
+
+
+
+                  </div>
+</div>
+              </div></section>
+ {% if article.comments | length > 0 %}             
+              {% for comment in article.comments |sort((b, a) => a.createdAt <=> b.createdAt) %} 
+              <div class="row mb-5">
+
+                <!-- Image column -->
+                <div class="col-sm-2 col-12 mb-3">
+
+                  <img src="{{ asset('images/article/' ~ comment.user.pic) }}"
+                    class="avatar rounded-circle z-depth-1-half" alt="sample image">
+
+                </div>
+                <!-- Image column -->
+
+                <!-- Content column -->
+                <div class="col-sm-10 col-12">
+
+                  <a>
+
+                    <h5 class="user-name font-weight-bold">{{comment.user.nom}} {{comment.user.prenom}}</h5>
+
+                  </a>
+
+                  <div class="card-data">
+
+                    <ul class="list-unstyled">
+
+                      <li class="comment-date font-small">
+
+                        <i class="far fa-clock-o"></i> {{comment.createdAt ? comment.createdAt|date('F j, Y, g:i a')}}</li>
+                                <span class="rating">
+                                  {% for i in 1..5 %}
+                                  {% if i <= comment.rating %} 
+                                  <i class="fas fa-star"></i>
+                                  {% else %}
+                                  <i class="far fa-star"></i>
+                                  {% endif %}
+                                  {% endfor %}
+                                </span>
+                    </ul>
+
+                  </div>
+
+                  <p class="dark-grey-text article">{{comment.content}}.</p>
+
+                </div>
+                <!-- Content column -->
+
+              </div>
+        {% endfor %}
+
+          {% else %}
+          <h2>Cette annonce n'a pas encore recu de commentaires ...</h2>
+          {% endif %}
+
+            </div>
+            <!-- Main wrapper -->
+     
+         
+          </section>
+          <!-- Section: Magazine posts -->
+
+          <!-- Pagination dark -->
+          <nav>
+
+        
+
+          </nav>
+          <!-- Pagination dark grey -->
+
+       
+       </div>
+        <!-- Main news -->
+
+        <!-- Sidebar -->
+        <div class="col-xl-4 col-md-12 widget-column mt-0">
+
+  
+        
+
+      
+
+          <!-- Section: Featured posts -->
+          <section class="section widget-content">
+
+            <!-- Heading -->
+            <h4 class="font-weight-bold pt-2">
+
+              <strong>FEATURED POSTS</strong>
+
+            </h4>
+
+            <hr class="red title-hr mb-4">
+
+            <!-- Card -->
+            <div class="card card-body pb-0">
+
+              <div class="single-post">
+
+                <!-- Grid row -->
+                <div class="row">
+
+                  <div class="col-4">
+
+                    <!-- Image -->
+                    <div class="view overlay">
+
+                      <img src="https://mdbootstrap.com/img/Photos/Horizontal/People/4-col/img%20(121).jpg"
+                        class="img-fluid z-depth-1 rounded-0" alt="sample image">
+
+                      <a>
+
+                        <div class="mask rgba-white-slight"></div>
+
+                      </a>
+
+                    </div>
+
+                  </div>
+
+                  <!-- Excerpt -->
+                  <div class="col-8">
+
+                    <h6 class="mt-0 mb-3">
+
+                      <a>
+
+                        <strong>This is title of the news</strong>
+
+                      </a>
+
+                    </h6>
+
+                    <div class="post-data">
+
+                      <p class="font-small grey-text mb-0">
+
+                        <i class="far fa-clock-o"></i> 18/08/2017</p>
+
+                    </div>
+
+                  </div>
+
+                  <!-- Excerpt -->
+                </div>
+
+                <!-- Grid row -->
+              </div>
+
+            </div>
+
+          </section>
+          <!-- Section: Featured posts -->
+
+        </div>
+        <!-- Sidebar -->
+
+      </div>
+      <!-- Magazine -->
+
+    </div>
+
+
+<hr>
+<a href="/home">Retour</a>
+<br>
+</div> </main> <div id="like"></div><br><br>
+   <div class="streak streak-photo streak-md" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/architecture.jpg');" >
+      <div class="flex-center mask rgba-gradient">
+        <div class="container my-5" >
+
+          <!-- Section heading -->
+          <h3 class="text-center mb-5 pb-4 white-text font-weight-bold wow fadeIn" data-wow-delay="0.2s" >
+            <strong>YOU MIGHT ALSO LIKE</strong>
+          </h3>
+
+        
+         
+
+          </div>
+        </div>
+      </div>
+      <!-- Streak -->
+
+      <div class="container-fluid light-grey-background">
+        <div class="container py-4">
+     
+
+  <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>
+
+    <div >
+      
+
+        <hr class="red title-hr">
+
+<br><br><br>
+
+<section class="customer-logos slider section text-center ">
+            {% for article in articles %}
+
+                    <div class="slide ">    <div class="col-xl-30 ">
+
+                            <!-- Card -->
+                            <div class="card card-cascade narrower">
+
+                                <a href="{{ path('article_show', {'id': article.id}) }}"> <!-- Card image -->
+                                    <div class="view view-cascade overlay zoom">
+
+                                        <img src = "{{ asset('images/article/' ~ article.image) }}"   style="max-width: 600px;height: 200px; "class="card-img-top"
+                                             alt="">
+
+
+
+                                        <div class="mask rgba-white-slight"></div>
+
+
+
+                                    </div>
+                                    <!-- Card image -->
+                                </a>
+                                <!-- Card content -->
+                                <div class="card-body card-body-cascade">
+
+                                    <h6 class="font-weight-bold indigo-text"><i class="far fa-calendar-alt "></i> Added on {{article.createdAt ? article.createdAt|date('F j, Y ')}}</h6>
+
+                                    <!-- Title -->
+                                    <h4 class="card-title">{{article.nom}}</h4>
+                                    <p>{% if  article.categorie.nom == 'Games' %}
+                            
+                            <i class="fa fa-gamepad"></i> {{article.categorie.nom}}
+                            {% elseif article.categorie.nom == 'Software' %}
+                           <i class="fab fa-microsoft"></i>
+                             {{article.categorie.nom}}</h4>
+                              {% else %}
+                                <i class="fas fa-wifi"></i>
+                             {{article.categorie.nom}}</h4>
+                              {% endif %}
+                                    </p>
+                                    <!-- Text -->
+                                    <p class="card-text grey-text"></p>
+
+                                    <a href="#" class="black-text d-flex flex-row-reverse">
+                                        <p class="waves-effect p-2 font-small blue-text mb-0">Voire plus
+                                            <i class="fas fa-long-arrow-alt-right ml-2" aria-hidden="true"></i>
+                                        </p>
+                                    </a>
+
+                                </div>
+                                <!-- Card content -->
+
+                            </div>
+                            <!-- Card -->
+
+                        </div></div>
+
+            {% endfor %}
+        </section></div>
+<br><br><br><br>
+
+              <!-- Indicators -->
+            </div>
+                <!-- Third slide -->
+          <!-- Section: Download -->
+      
+</section>
+        </div>
+      </div>
+      <!-- Second container -->
+    
+   
+</main>
+ <style>
+        h2{
+            text-align:center;
+            padding: 20px;
+        }
+        /* Slider */
+
+        .slick-slide {
+            margin: 0px 20px;
+        }
+
+        .slick-slide img {
+            width: 100%;
+        }
+
+        .slick-slider
+        {
+            position: relative;
+            display: block;
+            box-sizing: border-box;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+            -khtml-user-select: none;
+            -ms-touch-action: pan-y;
+            touch-action: pan-y;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .slick-list
+        {
+            position: relative;
+            display: block;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+        .slick-list:focus
+        {
+            outline: none;
+        }
+        .slick-list.dragging
+        {
+            cursor: pointer;
+            cursor: hand;
+        }
+
+        .slick-slider .slick-track,
+        .slick-slider .slick-list
+        {
+            -webkit-transform: translate3d(0, 0, 0);
+            -moz-transform: translate3d(0, 0, 0);
+            -ms-transform: translate3d(0, 0, 0);
+            -o-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+        }
+
+        .slick-track
+        {
+            position: relative;
+            top: 0;
+            left: 0;
+            buttom:0;
+            display: block;
+        }
+        .slick-track:before,
+        .slick-track:after
+        {
+            display: table;
+            content: '';
+        }
+        .slick-track:after
+        {
+            clear: both;
+        }
+        .slick-loading .slick-track
+        {
+            visibility: hidden;
+        }
+
+        .slick-slide
+        {
+            display: none;
+            float: left;
+            height: 50%;
+            min-height: 1px;
+        }
+        [dir='rtl'] .slick-slide
+        {
+            float: right;
+        }
+        .slick-slide img
+        {
+            display: block;
+        }
+        .slick-slide.slick-loading img
+        {
+            display: none;
+        }
+        .slick-slide.dragging img
+        {
+            pointer-events: none;
+        }
+        .slick-initialized .slick-slide
+        {
+            display: block;
+        }
+        .slick-loading .slick-slide
+        {
+            visibility: hidden;
+        }
+        .slick-vertical .slick-slide
+        {
+            display: block;
+            height: auto;
+            border: 1px solid transparent;
+        }
+        .slick-arrow.slick-hidden {
+            display: none;
+        }
+    </style>
+
+
+
+    <script>
+        $(document).ready(function(){
+            $('.customer-logos').slick({
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 1500,
+                arrows: false,
+                dots: false,
+                pauseOnHover: false,
+                responsive: [{
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 4
+                    }
+                }, {
+                    breakpoint: 520,
+                    settings: {
+                        slidesToShow: 3
+                    }
+                }]
+            });
+        });
+    </script>
+{% endblock %}
+
